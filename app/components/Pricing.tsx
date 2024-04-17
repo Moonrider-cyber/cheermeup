@@ -65,7 +65,7 @@ export default function Pricing() {
           Show Your Cheer🥂
         </Typography>
         <Typography variant="body1" color="text.secondary">
-          It's time to show your love and support.
+          It&apos;s time to show your love and support.
         </Typography>
 
         <Card
