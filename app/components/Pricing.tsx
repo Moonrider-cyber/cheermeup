@@ -1,45 +1,58 @@
+"use client";
+
 import * as React from "react";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import Typography from "@mui/material/Typography";
-import {
-  Button,
-  Card,
-  Checkbox,
-  FormControlLabel,
-  TextField,
-} from "@mui/material";
-import { SendMoney } from "../actions";
+
+import { Card, CircularProgress, TextField } from "@mui/material";
+import { toast } from "react-toastify";
+import getStripe from "@/utils/get-stripe";
 
 export default function Pricing() {
-  const [price, setPrice] = React.useState(1);
+  const [price, setPrice] = React.useState(50);
   const [name, setName] = React.useState("");
   const [message, setMessage] = React.useState("");
-  const [anonymous, setAnonymous] = React.useState(false);
+  const [submitting, setSubmitting] = React.useState(false);
 
-  function handlePriceChange(e: any) {
-    if(e.target.value > 1000) return;
-    setPrice(e.target.value);
-  }
+  async function handleSendMoney() {
+    if (name == "" || message == "") {
+      toast.error("Please fill in all the fields.");
+      return;
+    }
+    setSubmitting(true);
 
-  async function handleSendMoney(){
-    // const data = {
-    //   amount: price,
-    //   name,
-    //   message
-    // };
-    
-    // const result = await SendMoney(data);
-    
-    // const { error } = JSON.parse(result);
+    const data = {
+      amount: price,
+      name,
+      message,
+    };
 
-    // if(error){
-    //   console.log("error", error);
-      
-    //   alert("An error occurred while sending money. Please try again.");
-    //   return;
-    // }
+    const response = await fetch("/api/send-money", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    });
 
+    if (response.status != 200) {
+      setSubmitting(false);
+      toast.error("An error occurred while sending money. Please try again.");
+      return;
+    }
+
+    const stripe = await getStripe();
+    const session = await response.json();
+
+    const result = await stripe?.redirectToCheckout({
+      sessionId: session.id,
+    });
+
+    if (result?.error) {
+      setSubmitting(false);
+      console.log("error", result.error);
+    }
   }
 
   return (
@@ -55,6 +68,7 @@ export default function Pricing() {
         gap: { xs: 3, sm: 6 },
       }}
     >
+      
       <Box
         sx={{
           width: { sm: "100%", md: "60%" },
@@ -87,99 +101,86 @@ export default function Pricing() {
             }}
           >
             <div
-              className={`relative rounded-full border border-solid flex items-center justify-center xs:w-10 xs:h-10 w-12 h-12 ${
-                price == 1 && "bg-slate-300 text-black"
+              className={`relative rounded-lg border border-solid flex items-center justify-center xs:w-10 xs:h-10 w-14 h-12 ${
+                price == 50 && "bg-slate-300 text-black"
               }`}
             >
               <span className="text-lg font-bold xs:font-medium xs:text-sm">
-                1
+                50
               </span>
               <input
                 type="radio"
                 className="absolute opacity-0 w-full h-full left-0 top-0 cursor-pointer"
-                value={1}
+                value={50}
                 onChange={(e) => setPrice(Number(e.target.value))}
                 name="price"
+                disabled={submitting}
               />
             </div>
             <div
-              className={`relative rounded-full border border-solid flex items-center justify-center xs:w-10 xs:h-10 w-12 h-12 ${
-                price == 2 && "bg-slate-300 text-black"
+              className={`relative rounded-lg border border-solid flex items-center justify-center xs:w-10 xs:h-10 w-14 h-12 ${
+                price == 100 && "bg-slate-300 text-black"
               }`}
             >
               <span className="text-lg font-bold xs:font-medium xs:text-sm">
-                2
+                100
               </span>
               <input
                 type="radio"
                 className="absolute opacity-0 w-full h-full left-0 top-0 cursor-pointer"
-                value={2}
+                value={100}
                 onChange={(e) => setPrice(Number(e.target.value))}
                 name="price"
+                disabled={submitting}
               />
             </div>
             <div
-              className={`relative rounded-full border border-solid flex items-center justify-center xs:w-10 xs:h-10 w-12 h-12 ${
-                price == 5 && "bg-slate-300 text-black"
+              className={`relative rounded-lg border border-solid flex items-center justify-center xs:w-10 xs:h-10 w-14 h-12 ${
+                price == 500 && "bg-slate-300 text-black"
               }`}
             >
               <span className="text-lg font-bold xs:font-medium xs:text-sm">
-                5
+                500
               </span>
               <input
                 type="radio"
                 className="absolute opacity-0 w-full h-full left-0 top-0 cursor-pointer"
-                value={5}
+                value={500}
                 onChange={(e) => setPrice(Number(e.target.value))}
                 name="price"
+                disabled={submitting}
               />
             </div>
             <div
-              className={`relative rounded-full border border-solid flex items-center justify-center xs:w-10 xs:h-10 w-12 h-12 ${
-                price == 10 && "bg-slate-300 text-black"
+              className={`relative rounded-lg border border-solid flex items-center justify-center xs:w-10 xs:h-10 w-14 h-12 ${
+                price == 1000 && "bg-slate-300 text-black"
               }`}
             >
               <span className="text-lg font-bold xs:font-medium xs:text-sm">
-                10
+                1000
               </span>
               <input
                 type="radio"
                 className="absolute opacity-0 w-full h-full left-0 top-0 cursor-pointer"
-                value={10}
+                value={1000}
                 onChange={(e) => setPrice(Number(e.target.value))}
                 name="price"
+                disabled={submitting}
               />
             </div>
-
-            <input
-              typeof="number"
-              className="w-12 h-12 text-center rounded-xl bg-[#1e1e1e] text-white border"
-              type="number"
-              value={price}
-              onChange={handlePriceChange}
-            />
           </Box>
 
-          <div className="flex flex-col w-9/12">
+          <div className="flex flex-col sm:w-9/12 w-full">
             <TextField
               variant="outlined"
               size="medium"
               placeholder="Enter Your Name"
               InputProps={{ sx: { borderRadius: 2 } }}
               className=" mt-5"
-              disabled={anonymous}
               value={name}
               onChange={(e) => setName(e.target.value)}
+              disabled={submitting}
             />
-            <div className="flex mt-1 ml-1">
-              <FormControlLabel
-                control={<Checkbox />}
-                label="Make it anonymous"
-                className="select-none"
-                checked={anonymous}
-                onChange={(e: any) => setAnonymous(e.target.checked)}
-              />
-            </div>
           </div>
 
           <TextField
@@ -187,19 +188,30 @@ export default function Pricing() {
             placeholder="Enter Your Message"
             rows={4}
             InputProps={{ sx: { borderRadius: 2 } }}
-            className="w-9/12"
+            className="sm:w-9/12 w-full"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
+            disabled={submitting}
           />
 
-          <button 
-            className="bg-slate-300 text-gray-800 px-8 py-3 w-1/2 mt-2 rounded-xl font-bold hover:bg-slate-400 transition-colors duration-300 ease-in-out"
+          <button
+            className={`flex justify-center items-center bg-slate-300 ${
+              submitting ? "bg-slate-600" : ""
+            }  text-gray-800 px-8 py-3 w-1/2 mt-2 rounded-xl font-bold ${
+              !submitting ? "hover:bg-slate-400" : ""
+            } transition-colors duration-300 ease-in-out`}
             onClick={handleSendMoney}
+            disabled={submitting}
           >
-            Support ${price > 0 ? price : 1}
+            {submitting ? (
+              <CircularProgress className="text-gray-800" size={25} />
+            ) : (
+              `Support ₹${price}`
+            )}
           </button>
         </Card>
       </Box>
+      
     </Container>
   );
 }

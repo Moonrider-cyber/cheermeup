@@ -1,0 +1,39 @@
+import { NextRequest, NextResponse } from "next/server";
+
+interface ReqData {
+    amount: number;
+    name: string;
+    message: string;
+}
+
+export async function POST(req: NextRequest) {
+
+    const { amount, name, message }: ReqData = await req.json();
+    const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY);
+    
+    const session = await stripe.checkout.sessions.create({
+        payment_method_types: ["card"],
+        line_items: [
+        {
+            price_data: {
+            currency: "INR",
+            product_data: {
+                name: "CheerMe",
+                
+                metadata: {
+                    user_name: name,
+                    user_message: message,
+                }
+            },
+            unit_amount: amount * 100,
+            },
+            quantity: 1,
+        },
+        ],
+        mode: "payment",
+        success_url: `http://localhost:3000/`,
+        cancel_url: `https://cheerme.vercel.app/cancel`,
+    });
+    
+    return NextResponse.json(session);
+}

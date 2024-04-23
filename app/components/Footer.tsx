@@ -3,11 +3,6 @@ import Box from '@mui/material/Box';
 import Container from '@mui/material/Container';
 import Typography from '@mui/material/Typography';
 
-const logoStyle = {
-  width: '140px',
-  height: 'auto',
-};
-
 function Copyright() {
   return (
     <Typography variant="body2" color="text.secondary" mt={1} sx={{ textAlign: "center"}}>
@@ -26,7 +21,7 @@ export default function Footer() {
         flexDirection: 'column',
         alignItems: 'center',
         gap: { xs: 4, sm: 8 },
-        py: { xs: 8, sm: 10 },
+        py: { xs: 5, sm: 7 },
         textAlign: { sm: 'center', md: 'left' },
       }}
     >
