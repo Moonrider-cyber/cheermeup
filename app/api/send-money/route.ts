@@ -31,8 +31,8 @@ export async function POST(req: NextRequest) {
         },
         ],
         mode: "payment",
-        success_url: `http://localhost:3000/`,
-        cancel_url: `https://cheerme.vercel.app/cancel`,
+        success_url: `${process.env.NEXT_PUBLIC_WEBSITE_URL}`,
+        cancel_url: `${process.env.NEXT_PUBLIC_WEBSITE_URL}`,
     });
     
     return NextResponse.json(session);
