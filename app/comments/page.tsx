@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { GetTransactions } from "../actions";
 import {
   Avatar,
@@ -8,7 +8,6 @@ import {
   Card,
   CardContent,
   CardHeader,
-  CircularProgress,
   Container,
   Grid,
   Typography,
@@ -21,9 +20,10 @@ interface UserMessages {
   amount: number;
 }
 
-export default function page() {
-  const [loading, setLoading] = React.useState<boolean>(true);
-  const [UserMessages, setUserMessages] = React.useState<UserMessages[]>([]);
+export default function Page() {
+
+  const [loading, setLoading] = useState<boolean>(true);
+  const [UserMessages, setUserMessages] = useState<UserMessages[]>([]);
 
   useEffect(() => {
     async function fetchData() {
