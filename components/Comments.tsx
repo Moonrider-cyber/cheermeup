@@ -5,7 +5,7 @@ import Card from "@mui/material/Card";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
-import { GetHomeTransactions } from "../actions";
+import { GetHomeTransactions } from "../app/actions";
 import {
   Avatar,
   Button,
