@@ -29,5 +29,36 @@ export async function SaveTransactions({ name, message, amount, sessionId } : Se
     catch (error) {
         return NextResponse.json({ error: error });
     }
-    
+}
+
+export async function GetHomeTransactions() {
+    const supabase = createClient();
+    try {
+        const {data, error} = await supabase.from('transactions').select().limit(3).order('amount', {ascending: false});
+        if (error) {
+            return NextResponse.json({ error: error });
+        }
+        return data;
+    }
+    catch (error) {
+        console.log(error);
+        
+        return NextResponse.json({ error: error });
+    }
+}
+
+export async function GetTransactions() {
+    const supabase = createClient();
+    try {
+        const {data, error} = await supabase.from('transactions').select();
+        if (error) {
+            return NextResponse.json({ error: error });
+        }
+        return data;
+    }
+    catch (error) {
+        console.log(error);
+        
+        return NextResponse.json({ error: error });
+    }
 }
