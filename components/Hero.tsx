@@ -51,7 +51,7 @@ export default function Hero() {
           <Typography
             textAlign="center"
             color="text.secondary"
-            sx={{ alignSelf: 'center', width: { sm: '100%', md: '80%' }, fontSize: {xs: '.9rem', sm: '1.25rem'} }}
+            sx={{ alignSelf: 'center', width: { sm: '100%', md: '80%' }, fontSize: {xs: '.8rem', sm: '1.25rem'} }}
           >
             A cheer from you means a lot, giving me that extra motivation to chase my&nbsp;
             <Typography
@@ -59,6 +59,7 @@ export default function Hero() {
               component='span'
               sx={{
                 textDecoration: 'underline',
+                fontSize: {xs: '.8rem', sm: '1.25rem'},
               }}
             >
               dreams

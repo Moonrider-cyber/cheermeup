@@ -37,11 +37,11 @@ export default function Page() {
   return (
     <>
       <div>
-        <Link href={"/"} className="absolute sm:left-32 left-10 md:left-11 cursor-pointer">
+        <Link href={"/"} className="absolute sm:left-32 left-5 md:left-11 cursor-pointer w-7 sm:w-8">
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="34"
-            height="34"
+            // width="34"
+            // height="34"
             viewBox="0 0 24 24"
             fill="none"
             stroke="currentColor"
@@ -54,7 +54,7 @@ export default function Page() {
             <path d="M19 12H5" />
           </svg>
         </Link>
-        <h1 className="text-5xl text-center mt-14 font-bold text-slate-300">
+        <h1 className="sm:text-5xl text-2xl text-center mt-14 font-bold text-slate-300">
           Wall of Cheers
         </h1>
       </div>
@@ -71,7 +71,7 @@ export default function Page() {
           </Box>
         ) : (
           <Grid container spacing={2}>
-            {UserMessages.length > 1 &&
+            {UserMessages.length > 0 &&
               UserMessages.map((messages, index) => (
                 <Grid
                   item

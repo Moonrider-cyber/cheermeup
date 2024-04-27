@@ -11,7 +11,6 @@ import {
   Button,
   CardContent,
   CardHeader,
-  CircularProgress,
   Grid,
 } from "@mui/material";
 
@@ -23,7 +22,7 @@ interface UserMessages {
   amount: number;
 }
 
-export default function Comments() {
+export default function WallOfCheer() {
   const [UserMessages, setUserMessages] = React.useState<UserMessages[]>([]);
   const [loading, setLoading] = React.useState<boolean>(true);
 
@@ -40,8 +39,8 @@ export default function Comments() {
     <Container
       id="comments"
       sx={{
-        pt: { xs: 4, sm: 30 },
-        pb: { xs: 4, sm: 10 },
+        mt: { xs: 10, sm: 30 },
+        mb: { xs: 10, sm: 10 },
         position: "relative",
         display: "flex",
         flexDirection: "column",
@@ -52,32 +51,30 @@ export default function Comments() {
       <Box
         sx={{
           width: { sm: "100%", md: "60%" },
-          textAlign: { sm: "left", md: "center" },
+          textAlign: "center",
         }}
       >
-        <Typography component="h2" variant="h4" color="text.primary">
+        <Typography component="h2" variant="h4" color="text.primary" sx={{
+          fontSize: { xs: '1.5rem', sm: '2.3rem'},
+        }}>
           Wall of Cheers
         </Typography>
-        <Typography variant="body1" color="text.secondary">
+        <Typography variant="body1" color="text.secondary" sx={{
+          fontSize: {xs: '.8rem', sm: '1.1rem'},
+        }}>
           Here are all the heroes who have changed my life with their amazing
           hearts.
         </Typography>
       </Box>
       {loading ? (
-        <Box className="flex items-center justify-center w-full h-40 gap-4">
-          <Card className="flex items-center justify-center w-full h-40">
-            <CircularProgress />
-          </Card>
-          <Card className="flex items-center justify-center w-full h-40">
-            <CircularProgress />
-          </Card>
-          <Card className="flex items-center justify-center w-full h-40">
-            <CircularProgress />
-          </Card>
-        </Box>
+        <Box className="grid gap-4 w-full grid-cols-3">
+        {Array.from(new Array(3)).map((_, index) => (
+          <Card className="w-full h-40 animate-pulse" key={index} />
+        ))}
+      </Box>
       ) : (
         <Grid container spacing={2}>
-          {UserMessages.length > 1 &&
+          {UserMessages.length > 0 &&
             UserMessages.map((messages, index) => (
               <Grid
                 item
@@ -135,11 +132,11 @@ export default function Comments() {
         </Grid>
       )}
 
-      <Link href={`/comments`} className="w-full flex justify-center">
+      <Link href={`/comments`}>
         <Button
           variant="outlined"
           color="primary"
-          className="w-1/4 rounded-md px-4 py-2 transition duration-300 ease-in-out"
+          className="w-full rounded-md px-12 py-2 transition duration-300 ease-in-out"
         >
           View all
         </Button>

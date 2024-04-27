@@ -9,7 +9,7 @@ import { Card, CircularProgress, TextField } from "@mui/material";
 import { toast } from "react-toastify";
 import getStripe from "@/utils/get-stripe";
 
-export default function Pricing() {
+export default function MakeCheer() {
   const [price, setPrice] = React.useState(50);
   const [name, setName] = React.useState("");
   const [message, setMessage] = React.useState("");
@@ -59,8 +59,8 @@ export default function Pricing() {
     <Container
       id="pricing"
       sx={{
-        pt: { xs: 4, sm: 12 },
-        pb: { xs: 8, sm: 16 },
+        mt: { xs: 4, sm: 12 },
+        mb: { xs: 8, sm: 16 },
         position: "relative",
         display: "flex",
         flexDirection: "column",
@@ -72,13 +72,17 @@ export default function Pricing() {
       <Box
         sx={{
           width: { sm: "100%", md: "60%" },
-          textAlign: { sm: "left", md: "center" },
+          textAlign: "center",
         }}
       >
-        <Typography component="h2" variant="h4" color="text.primary">
+        <Typography component="h2" variant="h4" color="text.primary" sx={{
+          fontSize: {xs: '1.6rem', sm: '2.3rem'},
+        }}>
           Show Your Cheer🥂
         </Typography>
-        <Typography variant="body1" color="text.secondary">
+        <Typography variant="body1" color="text.secondary" sx={{
+          fontSize: {xs: '.8rem', sm: '1.1rem'},
+        }}>
           It&apos;s time to show your love and support.
         </Typography>
 
@@ -89,7 +93,8 @@ export default function Pricing() {
             alignItems: "center",
             flexDirection: "column",
             gap: 2,
-            p: 5,
+            p: { xs: 0, sm: 5 },
+            background: { xs: "transparent", sm: "#1e1e1e" },
             mt: 4,
           }}
         >
@@ -97,7 +102,7 @@ export default function Pricing() {
             sx={{
               display: "flex",
               justifyContent: "center",
-              gap: 3,
+              gap: { xs: 2, sm: 3},
             }}
           >
             <div
@@ -169,26 +174,23 @@ export default function Pricing() {
               />
             </div>
           </Box>
-
-          <div className="flex flex-col sm:w-9/12 w-full">
-            <TextField
+        <TextField
               variant="outlined"
-              size="medium"
+              // size="medium"
               placeholder="Enter Your Name"
               InputProps={{ sx: { borderRadius: 2 } }}
-              className=" mt-5"
+              className=" mt-5 sm:w-9/12 w-11/12"
               value={name}
               onChange={(e) => setName(e.target.value)}
               disabled={submitting}
             />
-          </div>
 
           <TextField
             multiline
             placeholder="Enter Your Message"
             rows={4}
             InputProps={{ sx: { borderRadius: 2 } }}
-            className="sm:w-9/12 w-full"
+            className="sm:w-9/12 w-11/12"
             value={message}
             onChange={(e) => setMessage(e.target.value)}
             disabled={submitting}
@@ -197,7 +199,7 @@ export default function Pricing() {
           <button
             className={`flex justify-center items-center bg-slate-300 ${
               submitting ? "bg-slate-600" : ""
-            }  text-gray-800 px-8 py-3 w-1/2 mt-2 rounded-xl font-bold ${
+            }  text-gray-800 px-8 py-3 sm:w-1/2 w-5/6 mt-2 rounded-xl font-bold ${
               !submitting ? "hover:bg-slate-400" : ""
             } transition-colors duration-300 ease-in-out`}
             onClick={handleSendMoney}
