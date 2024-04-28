@@ -6,15 +6,9 @@ import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import { GetHomeTransactions } from "../app/actions";
-import {
-  Avatar,
-  Button,
-  CardContent,
-  CardHeader,
-  Grid,
-} from "@mui/material";
+import { Avatar, Button, CardContent, CardHeader, Grid } from "@mui/material";
 
-import Link from 'next/link';
+import Link from "next/link";
 
 interface UserMessages {
   name: string;
@@ -54,37 +48,40 @@ export default function WallOfCheer() {
           textAlign: "center",
         }}
       >
-        <Typography component="h2" variant="h4" color="text.primary" sx={{
-          fontSize: { xs: '1.5rem', sm: '2.3rem'},
-        }}>
+        <Typography
+          component="h2"
+          variant="h4"
+          color="text.primary"
+          sx={{
+            fontSize: { xs: "1.5rem", sm: "2.3rem" },
+          }}
+        >
           Wall of Cheers
         </Typography>
-        <Typography variant="body1" color="text.secondary" sx={{
-          fontSize: {xs: '.8rem', sm: '1.1rem'},
-        }}>
+        <Typography
+          variant="body1"
+          color="text.secondary"
+          sx={{
+            fontSize: { xs: ".8rem", sm: "1.1rem" },
+          }}
+        >
           Here are all the heroes who have changed my life with their amazing
           hearts.
         </Typography>
       </Box>
       {loading ? (
         <Box className="grid gap-4 w-full grid-cols-3">
-        {Array.from(new Array(3)).map((_, index) => (
-          <Card className="w-full h-40 animate-pulse" key={index} />
-        ))}
-      </Box>
+          {Array.from(new Array(3)).map((_, index) => (
+            <Card className="w-full h-40 animate-pulse" key={index} />
+          ))}
+        </Box>
       ) : (
         <Grid container spacing={2}>
           {UserMessages.length > 0 &&
             UserMessages.map((messages, index) => (
-              <Grid
-                item
-                xs={12}
-                sm={6}
-                md={4}
-                key={index}
-                sx={{ display: "flex" }}
-              >
+              <Grid item xs={12} sm={6} md={4} sx={{ display: "flex" }}>
                 <Card
+                  key={index}
                   sx={{
                     display: "flex",
                     flexDirection: "column",
@@ -131,7 +128,6 @@ export default function WallOfCheer() {
             ))}
         </Grid>
       )}
-
       <Link href={`/comments`}>
         <Button
           variant="outlined"
@@ -141,7 +137,6 @@ export default function WallOfCheer() {
           View all
         </Button>
       </Link>
-
     </Container>
   );
 }

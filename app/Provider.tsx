@@ -1,6 +1,7 @@
 "use client";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
+import { Analytics } from "@vercel/analytics/react"
 
 const darkTheme = createTheme({
   palette: {
@@ -16,6 +17,7 @@ export default function Provider({
   return (
     <ThemeProvider theme={darkTheme}>
       <CssBaseline />
+      <Analytics />
       {children}
     </ThemeProvider>
   );
