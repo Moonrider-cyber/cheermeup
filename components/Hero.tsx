@@ -45,7 +45,7 @@ export default function Hero() {
                 color: 'secondary.main', 
               }}
               >
-              Difference
+              Difference🎉
             </Typography>
               </Typography>
           <Typography
