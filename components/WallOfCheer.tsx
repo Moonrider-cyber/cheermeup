@@ -79,7 +79,7 @@ export default function WallOfCheer() {
         <Grid container spacing={2}>
           {UserMessages.length > 0 &&
             UserMessages.map((messages, index) => (
-              <Grid item xs={12} sm={6} md={4} sx={{ display: "flex" }}>
+              <Grid item xs={12} sm={6} md={4} sx={{ display: "flex" }} key={index}>
                 <Card
                   key={index}
                   sx={{
