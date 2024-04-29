@@ -7,5 +7,6 @@ CheerMe is a platform that allows you to receive both monetary donations and wor
 - NextJs
 - Stripe
 - TypeScript
+- SupaBase
 - TailwindCss
 - Mui (Material UI)
