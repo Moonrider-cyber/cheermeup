@@ -34,7 +34,7 @@ export async function SaveTransactions({ name, message, amount, sessionId } : Se
 export async function GetHomeTransactions() {
     const supabase = createClient();
     try {
-        const {data, error} = await supabase.from('transactions').select().limit(3).order('amount', {ascending: false});
+        const {data, error} = await supabase.from('transactions').select().limit(3).order('amount', {ascending: false}).order('created_at', {ascending: false});
         if (error) {
             return NextResponse.json({ error: error });
         }
